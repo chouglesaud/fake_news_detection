@@ -1,35 +1,38 @@
 <!DOCTYPE html>
-<html >
-<head>
-  <meta charset="UTF-8">
-  <title>Fake News📰 Detection System</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fake News📰 Detection System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
 
-</head>
-
-<body>
- <div class="login">
-	<h1>Fake News📰  Detector</h1>
-
-    <form action="{{ url_for('predict')}}" method="POST">
-    	<textarea  name="message" rows="6" cols="50" required="required" style="font-size: 18pt"></textarea>
-		<br> </br>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-
-        	<div class="results">
-
-	{% if prediction == ['FAKE']%}
-	<h2 style="color:red;">Looking Spam⚠️News📰 </h2>
-	{% elif prediction == ['REAL']%}
-				<h2 style="color:green;"><b>Looking Real News📰</b></h2>
-	{% endif %}
-
-	</div>
-
-    </form>
-
-</div>
+  <body>
+    <div class="container m-4">
+      <div class="row">
+        <h3>Fake News Detector</h3>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <form id="news-form" action="{{ url_for('predict')}}" method="POST">
+            <div class="input-container">
+              <textarea class="form-control" id="news" name="news" rows="7" cols="50"></textarea>
+            </div>
+            <div class="action-container mt-2">
+              <button type="submit" class="btn btn-md btn-primary">Detect</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="result-container p-2">
+            {% if prediction == ['FAKE']%}
+            <p style="color: red"><b>Fake New Detected !!!</b></p>
+            {% elif prediction == ['REAL']%}
+            <p style="color: green"><b>You can trust. It's Real News</b></p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
